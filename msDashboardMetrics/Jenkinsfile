@@ -1,0 +1,47 @@
+pipeline {
+  agent any
+  stages {
+    stage('Get code') {
+      steps {
+        // get the code from GitHub
+        git branch: 'DEV_Stable',
+            credentialsId: 'fb4131b6-ed36-4cc3-b18f-4f82e7dff4cb',
+            url: 'git@github.com:UnifyTech/edms.git'
+        sh 'pwd'
+      }
+    }
+    stage('Build') {
+      steps {
+        // build the package using Maven
+        dir("${env.WORKSPACE}/$JOB_NAME"){ 
+          sh "pwd"
+          sh 'mvn clean install -DskipTests=true'
+        }
+      }
+    }
+    stage('Create Docker image') {
+      steps {
+        // create a Docker image
+        dir("${env.WORKSPACE}/$JOB_NAME"){ 
+        //  sh 'minikube docker-env'
+        //  sh 'eval $(minikube -p minikube docker-env)'
+          sh "pwd"
+          sh 'docker build -t msdashboardmetrics .'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        // deploy the Docker image to Kubernetes
+    //    sh 'eval $(minikube docker-env)'
+        dir("${env.WORKSPACE}/$JOB_NAME"){
+            sh '''for i in `docker ps -a | grep $JOB_NAME | awk '{print $1}'` ; do docker kill $i ; docker rm $i ; done'''
+            sh "docker run -d -p 8099:8099 --net=host --name $JOB_NAME --restart always -it msdashboardmetrics"
+//          sh 'sudo kubectl delete -f eureka-deploy.yaml'
+//          sh 'sudo kubectl apply -f eureka-deploy.yaml'
+//          sh 'sudo kubectl apply -f eureka-service.yaml'
+        }
+      }
+    }
+  }
+}

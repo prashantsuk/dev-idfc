@@ -1,0 +1,25 @@
+micronaut:
+  server:
+    port: 8099
+  application:
+    name: msDashBoardMetrics
+   
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+aerospike:
+  namespace: test
+  host: 52.140.58.184
+  port: 3000
+  userName: edpms
+  password: JSbw34*KhsQl1
+  
+eureka:
+   client:
+     registration:
+       enabled: true
+     defaultZone: "${EUREKA_HOST:52.140.58.184}:${EUREKA_PORT:8761}"
+    
+

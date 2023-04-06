@@ -1,0 +1,52 @@
+micronaut:
+  server:
+    port: 8099
+  application:
+    name: msDashBoardMetrics
+  security:
+    enabled: true
+    endpoints:
+        login:
+            enabled: true
+        oauth:
+          enabled: true 
+        logout:
+            enabled: true
+    authentication: bearer
+    token:
+      jwt:
+        enabled : true
+        generator : 
+          access-token:
+            expiration: 1200
+          refresh-token:
+            secret: pleaseChangeThisSecretForANewOnexyz
+          signatures:
+            secret:
+              generator:
+                secret: pleaseChangeThisSecretForANewOne
+                jws-algorithm: HS256
+
+   
+netty:
+  default:
+    allocator:
+      max-order: 3
+    
+file:
+   locationPath: /home/fimdb_admin/edms/
+
+aerospike:
+  namespace: test
+  host: 52.140.58.184
+  port: 3000
+  userName: edpms
+  password: JSbw34*KhsQl1
+  
+eureka:
+  client:
+    registration:
+      enabled: true
+    defaultZone: "${EUREKA_HOST:52.140.58.184}:${EUREKA_PORT:8761}"
+    
+
