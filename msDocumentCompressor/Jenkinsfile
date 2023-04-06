@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+  stages {
+    stage('Get code') {
+      steps {
+        // get the code from GitHub
+        git branch: 'DEV_Stable',
+            credentialsId: 'fb4131b6-ed36-4cc3-b18f-4f82e7dff4cb',
+            url: 'git@github.com:UnifyTech/edms.git'
+        sh 'pwd'
+      }
+    }
+    stage('Create Docker image') {
+      steps {
+        // create a Docker image
+        dir("${env.WORKSPACE}/$JOB_NAME"){ 
+        //  sh 'minikube docker-env'
+        //  sh 'eval $(minikube -p minikube docker-env)'
+          sh "pwd"
+          sh 'docker build -t msdocumentcompressor .'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        // deploy the Docker image to Kubernetes
+    //    sh 'eval $(minikube docker-env)'
+        dir("${env.WORKSPACE}/$JOB_NAME"){
+            sh '''for i in `docker ps -a | grep $JOB_NAME | awk '{print $1}'` ; do docker kill $i ; docker rm $i ; done'''
+            sh "docker run -d -p 9003:9003 --net=host -v /data/File_Storage/IDFC_EDP/$JOB_NAME/:/data/File_Storage/IDFC_EDP --name $JOB_NAME --restart always -it msdocumentcompressor"
+//          sh 'sudo kubectl delete -f eureka-deploy.yaml'
+//          sh 'sudo kubectl apply -f eureka-deploy.yaml'
+//          sh 'sudo kubectl apply -f eureka-service.yaml'
+        }
+      }
+    }
+  }
+}

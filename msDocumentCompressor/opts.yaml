@@ -1,0 +1,29 @@
+source_dir: '/data/File_Storage/IDFC_EDP/compress_test/original_data/' # server directory
+destin_dir: '/data/File_Storage/IDFC_EDP/compress_test/compressed_data/' # server directory
+#image_dirPath: '/data/File_Storage/IDFC_EDP/compress_test/image/' # local image dir
+#source_dir: '/home/unify/Downloads/test/original_data/' # local dir
+#destin_dir: '/home/unify/Downloads/test/compressed_data/' # local dir
+image_dirPath: '/home/unify/Downloads/test/image/'
+graphicData: "graphicData"
+base64_decrypt:
+      text: [".txt",".text",".msg"]
+      universal: [".csv",".xlsx" ,".xls",".zip",".doc",".rtf",".dot",".docx",".ppt",".pptx",".pdf",".jpg",".jpeg",".png",".tiff",".tif",".bmp",".webm"]
+zero_val: 0
+one_val: 1
+scale_percentage: 85
+cent_val: 100
+pdf_quality: {0: '/default', 1: '/prepress', 2: '/printer', 3: '/ebook', 4: '/screen'}
+process_type_checker: {'jpg': "img_compressor", 'png': "img_compressor", 'jpeg': "img_compressor",
+                        'bmp': "img_compressor", 'tiff': "img_compressor", 'tif': "img_compressor",'webm': "img_compressor",
+                        'jpe': "img_compressor",'txt': "uncompress",'text':"uncompress",'msg':"uncompress",
+                        'pdf': "pdf_compressor", 'doc': "document_type_compressor", 'docx': "document_type_compressor",
+                        'ppt': "document_type_compressor", 'pptx': "document_type_compressor", 'dot':"document_type_compressor",
+                       'rtf': "document_type_compressor",
+                        "zip": "uncompress", "xlsx": "uncompress", "xls":"uncompress", "csv":"uncompress",
+                        'html': "uncompress", "htm": "uncompress", "eml": "uncompress"}
+
+#asure credentials:
+storage_account_key : "K/X4zWF60pd19rwzKvqXO4IPOHhX2w234Tyds2rjo7j4E3GE1/+OSAvPAPVxWjLlKZwSbtymS1Q/+ASt8rgLPw=="
+storage_account_name : "dmsblob15"
+connection_string : "DefaultEndpointsProtocol=https;AccountName=dmsblob15;AccountKey=K/X4zWF60pd19rwzKvqXO4IPOHhX2w234Tyds2rjo7j4E3GE1/+OSAvPAPVxWjLlKZwSbtymS1Q/+ASt8rgLPw==;EndpointSuffix=core.windows.net"
+container_name : "dms"
