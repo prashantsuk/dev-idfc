@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.edms
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [app-name, http-client, jackson-databind, java, java-application, junit, logback, lombok, maven, netty-server, readme, shade, spring, spring-boot, spring-web, yaml]

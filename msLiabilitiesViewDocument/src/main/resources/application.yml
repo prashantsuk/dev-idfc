@@ -1,0 +1,23 @@
+micronaut:
+  application:
+    name: msLiabilitiesViewDocument
+  server:
+    port: 8082
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+aerospike:
+  namespace: test
+  host: 52.140.58.184
+  port: 3000
+  
+      
+fileLocation : C:/Users/UNIFY/Desktop/docUpload/
+
+eureka:
+    client:
+        registration:
+            enabled: true
+        defaultZone: "${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}"
